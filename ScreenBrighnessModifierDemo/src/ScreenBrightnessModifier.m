@@ -109,6 +109,7 @@ static dispatch_source_t get_brightness_modifier_source() {
 
 + (void)setTimeInterval:(CGFloat)timeInterval {
     objc_setAssociatedObject(self, @selector(timeInterval), @(timeInterval), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    dispatch_source_set_timer(get_brightness_modifier_source(), DISPATCH_TIME_NOW, ScreenBrightnessModifier.timeInterval * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
 }
 
 + (CGFloat)segment {
