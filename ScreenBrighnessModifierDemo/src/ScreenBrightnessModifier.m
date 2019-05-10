@@ -51,6 +51,7 @@ static void bm_brightness_setting_unlock() {
 
 static void bm_dispatch_should_keep_running(dispatch_source_t source,BOOL resume) {
     static BOOL suspended = YES;
+    bm_brightness_setting_lock();
     if (resume) {
         if (suspended) {
             suspended = NO;
@@ -62,6 +63,7 @@ static void bm_dispatch_should_keep_running(dispatch_source_t source,BOOL resume
             dispatch_suspend(source);
         }
     }
+    bm_brightness_setting_unlock();
 }
 
 static dispatch_source_t get_brightness_modifier_source() {
@@ -121,11 +123,9 @@ static dispatch_source_t get_brightness_modifier_source() {
 }
 
 + (void)setBrightness:(CGFloat)value {
-    bm_brightness_setting_lock();
     bm_dispatch_should_keep_running(get_brightness_modifier_source(), NO);
     bm_target_brightness = value;
     bm_dispatch_should_keep_running(get_brightness_modifier_source(), YES);
-    bm_brightness_setting_unlock();
 }
 
 @end
