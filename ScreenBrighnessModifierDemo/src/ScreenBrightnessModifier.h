@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ScreenBrightnessModifier : NSObject
 
 /**
- Setting timeInterval of GCD source Timer, value are larger,animation is Faster
+ Setting timeInterval of GCD source Timer, value are smaller,animation is Faster
  */
 @property (nonatomic,assign,class) CGFloat timeInterval;
 /**
